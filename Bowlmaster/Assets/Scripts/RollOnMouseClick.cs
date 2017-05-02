@@ -6,34 +6,29 @@ public class RollOnMouseClick : MonoBehaviour
 {
     Rigidbody rb;
     AudioSource asource;
-    bool rolled = false;
-    public float rollSpeed = 50;
+    bool rolled;
+    public Vector3 launchVelocity = new Vector3(0, 0, 400); //default speed
     void Start()
     {
+        rolled = false;
         rb = GetComponent<Rigidbody>();
         asource = GetComponent<AudioSource>();
+        rb.useGravity = false;
 
     }
 
 
 
 
-    void RollMe()
+    public void RollMe(Vector3 velocity)
     {
         if (!rolled)
         {
-            Debug.Log("got mouseclick");
             rolled = true;
-            rb.velocity = new Vector3(0, 0, rollSpeed);
+            rb.useGravity = true;
+            rb.velocity = velocity;
             asource.Play();
         }
     }
     // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            RollMe();
-        }
-    }
 }
