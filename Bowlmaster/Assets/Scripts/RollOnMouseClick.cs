@@ -6,7 +6,7 @@ public class RollOnMouseClick : MonoBehaviour
 {
     Rigidbody rb;
     AudioSource asource;
-    bool rolled;
+    public bool rolled;
     public Vector3 launchVelocity = new Vector3(0, 0, 400); //default speed
     void Start()
     {

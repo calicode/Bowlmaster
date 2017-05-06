@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 
 [RequireComponent(typeof(RollOnMouseClick))]
 public class DragLaunch : MonoBehaviour
 {
 
+    private EventSystem eventSys;
     private Vector3 dragPositionStart, dragPositionEnd;
     private float dragEndTime, dragStartTime;
     private RollOnMouseClick ball;
@@ -14,8 +16,20 @@ public class DragLaunch : MonoBehaviour
     void Start()
     {
         ball = GetComponent<RollOnMouseClick>();
+        eventSys = EventSystem.current;
     }
 
+
+    public void MoveStart(float xNudge)
+    {
+
+        if (!ball.rolled)
+        {
+            float newX = Mathf.Clamp((transform.position.x + xNudge), -52f, +52f);
+            transform.position = new Vector3(newX, transform.position.y, transform.position.z);
+        }
+
+    }
 
     public void DragStart()
     {
