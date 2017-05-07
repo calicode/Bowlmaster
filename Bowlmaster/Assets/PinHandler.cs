@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class PinHandler : MonoBehaviour
 {
-    int standingPinCount;
     Pin[] pinList;
+    bool ballEnteredBox = false;
     // Use this for initialization
     void Start()
     {
 
-        pinList = GameObject.FindObjectsOfType<Pin>();
     }
 
     // Update is called once per frame
@@ -22,15 +21,36 @@ public class PinHandler : MonoBehaviour
 
     // look at level manager to figure out what i need to do to get button to see this setting static didn't fly
 
-    public int CountStanding()
+    public void CountStanding()
     {
+        int standingPinCount = 0;
+
+        pinList = GameObject.FindObjectsOfType<Pin>();
         foreach (Pin pin in pinList)
         {
 
             if (pin.IsStanding()) { standingPinCount++; }
         }
         Debug.Log("Standing pin count is" + standingPinCount);
-        return standingPinCount;
+    }
+
+    void OnTriggerEnter(Collider collider)
+    {
+        if (collider.gameObject.name == "Ball")
+        {
+            ballEnteredBox = true;
+        }
+    }
+
+
+
+    void OnTriggerExit(Collider collider)
+    {
+        if (collider.gameObject.name == "Pin_Collider")
+        {
+            Debug.Log("pin left collider it should destroy");
+            Destroy(collider.transform.parent.gameObject);
+        }
     }
 
 

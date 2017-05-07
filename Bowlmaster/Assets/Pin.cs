@@ -8,10 +8,11 @@ public class Pin : MonoBehaviour
     public bool IsStanding()
     {
 
-        if (transform.rotation.eulerAngles.x == 0)
+        if (Mathf.Round(transform.rotation.eulerAngles.x) == 0)
         {
             return true;
         }
+        // Debug.Log("Pin" + gameObject.name + " Is not standing its euler angles are" + transform.rotation.eulerAngles.x);
         return false;
 
 
