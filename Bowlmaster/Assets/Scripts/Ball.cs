@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RollOnMouseClick : MonoBehaviour
+public class Ball : MonoBehaviour
 {
     Rigidbody rb;
     AudioSource asource;
@@ -29,6 +29,18 @@ public class RollOnMouseClick : MonoBehaviour
             rb.velocity = velocity;
             asource.Play();
         }
+    }
+
+
+
+    public void ResetBall()
+    {
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        transform.eulerAngles = Vector3.zero;
+        transform.position = new Vector3(0, 15, 48);
+        rb.useGravity = false;
+        rolled = false;
     }
     // Update is called once per frame
 }

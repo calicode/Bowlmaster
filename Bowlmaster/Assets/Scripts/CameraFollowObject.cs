@@ -15,7 +15,7 @@ public class CameraFollowObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transform.position.z < cutoffPoint)
+        if (objectToFollow.transform.position.z < cutoffPoint)
         {
             transform.position = objectToFollow.transform.position - viewOffset;
         }

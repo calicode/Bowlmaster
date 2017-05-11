@@ -4,18 +4,18 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 
-[RequireComponent(typeof(RollOnMouseClick))]
+[RequireComponent(typeof(Ball))]
 public class DragLaunch : MonoBehaviour
 {
 
     private EventSystem eventSys;
     private Vector3 dragPositionStart, dragPositionEnd;
     private float dragEndTime, dragStartTime;
-    private RollOnMouseClick ball;
+    private Ball ball;
     // Use this for initialization
     void Start()
     {
-        ball = GetComponent<RollOnMouseClick>();
+        ball = GetComponent<Ball>();
         eventSys = EventSystem.current;
     }
 

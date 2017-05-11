@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PinHandler : MonoBehaviour
 {
-    Pin[] pinList;
+    Pin[] pinArray;
     bool ballEnteredBox = false;
     // Use this for initialization
     void Start()
@@ -25,8 +25,7 @@ public class PinHandler : MonoBehaviour
     {
         int standingPinCount = 0;
 
-        pinList = GameObject.FindObjectsOfType<Pin>();
-        foreach (Pin pin in pinList)
+        foreach (Pin pin in GetPinArray())
         {
 
             if (pin.IsStanding()) { standingPinCount++; }
@@ -34,6 +33,36 @@ public class PinHandler : MonoBehaviour
         Debug.Log("Standing pin count is" + standingPinCount);
     }
 
+
+
+
+    public Pin[] GetPinArray()
+    {
+        pinArray = GameObject.FindObjectsOfType<Pin>();
+        return pinArray;
+
+    }
+    public void RaisePins()
+    {
+
+        foreach (Pin pin in GetPinArray())
+        {
+
+            if (pin.IsStanding()) { pin.Raise(); }
+        }
+
+
+    }
+    public void LowerPins()
+    {
+        Debug.Log("Lower pins called from pinhandler");
+        foreach (Pin pin in GetPinArray())
+        {
+            pin.Lower();
+        }
+
+
+    }
     void OnTriggerEnter(Collider collider)
     {
         if (collider.gameObject.name == "Ball")
