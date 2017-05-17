@@ -19,7 +19,6 @@ public class Pin : MonoBehaviour
         {
             return true;
         }
-        // Debug.Log("Pin" + gameObject.name + " Is not standing its euler angles are" + transform.rotation.eulerAngles.x);
         return false;
 
 
