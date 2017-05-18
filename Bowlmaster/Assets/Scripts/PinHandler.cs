@@ -9,19 +9,22 @@ public class PinHandler : MonoBehaviour
     private int lastStandingCount = -1;
     private int lastSettledCount = 10;
     private float lastChangeTime;
-
-
+    private Ball ball;
+    private Animator anim;
     public GameObject pinsPrefab;
 
     // Use this for initialization
     void Start()
+
     {
+        anim = GetComponent<Animator>();
+        ball = GameObject.FindObjectOfType<Ball>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if (ballEnteredBox) { CheckPinsSettled(); }
     }
 
 
@@ -40,17 +43,46 @@ public class PinHandler : MonoBehaviour
     }
 
 
+
+
+    //this method does too much
     public void CheckPinsSettled()
     {
         int currentStandingCount = CountStanding();
 
         if (currentStandingCount != lastStandingCount)
         {
-
+            lastChangeTime = Time.time;
+            lastStandingCount = currentStandingCount;
+            return;
         }
 
+        float settleTime = 3f;
+
+        if ((Time.time - lastChangeTime) > settleTime)
+        {
+            if (currentStandingCount == 0)
+            {
+                anim.SetTrigger("refreshPins");
+
+            }
+            else anim.SetTrigger("clearPins");
+            CountPinsAndResetBall();
+        }
     }
 
+
+
+
+    public void CountPinsAndResetBall()
+    {
+
+        Debug.Log("Ball reset, pins left are " + lastStandingCount);
+        lastStandingCount = -1;
+        ball.ResetBall();
+        ballEnteredBox = false;
+
+    }
 
 
     public void RefreshPins()
