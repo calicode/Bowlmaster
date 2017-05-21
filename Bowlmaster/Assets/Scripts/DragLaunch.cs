@@ -12,6 +12,7 @@ public class DragLaunch : MonoBehaviour
     private Vector3 dragPositionStart, dragPositionEnd;
     private float dragEndTime, dragStartTime;
     private Ball ball;
+    private float nudgeAmount = 5f;
     // Use this for initialization
     void Start()
     {
@@ -20,12 +21,12 @@ public class DragLaunch : MonoBehaviour
     }
 
 
-    public void MoveStart(float xNudge)
+    public void MoveStart(int nudgeSignFromUIButton)
     {
-
+        float xNudge = nudgeAmount * nudgeSignFromUIButton;
         if (!ball.rolled)
         {
-            float newX = Mathf.Clamp((transform.position.x + xNudge), -52f, +52f);
+            float newX = Mathf.Clamp(transform.position.x + xNudge, -52f, +52f);
             transform.position = new Vector3(newX, transform.position.y, transform.position.z);
         }
 
