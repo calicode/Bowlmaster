@@ -2,7 +2,8 @@
 using UnityEditor;
 using NUnit.Framework;
 [TestFixture]
-public class ScoreTests
+public class ScoreMasterTest
+
 {
 
     [Test]
