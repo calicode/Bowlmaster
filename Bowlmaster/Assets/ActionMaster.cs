@@ -7,23 +7,29 @@ public class ActionMaster
 {
     public enum Action { Tidy, Refresh, EndGame, EndTurn };
     private int[] bowls = new int[21];
-    private int currentBowl = 1;
+    private int currentBowl = 0;
 
 
 
 
     public Action Bowl(int pins)
     {
-
+        currentBowl++;
         if (pins < 0 || pins > 10) { throw new UnityException("ActionMaster got out of range pin count"); }
-        //if (currentBowl >= 21) { return Action.EndGame; }
+
         //handle 10th frame edge cases here
-        //        if
 
-        if (currentBowl >= 19)
+        if (currentBowl >= 19 && currentBowl < 21)
         {
-
+            Debug.Log("in 10th frame");
+            if (pins == 10)
+            {
+                return Action.Refresh;
+            }
         }
+
+        if (currentBowl == 21) { return Action.EndGame; }
+
 
         //even currentBowls will always return endturn outside of the 10th frame edge cases handled above
         if (currentBowl % 2 == 0) { return Action.EndTurn; }
@@ -34,8 +40,6 @@ public class ActionMaster
             if (currentBowl % 2 != 0) { currentBowl++; }
             return Action.EndTurn;
         }
-
-        currentBowl++;
 
 
         return Action.Tidy;

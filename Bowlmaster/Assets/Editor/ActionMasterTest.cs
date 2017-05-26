@@ -6,8 +6,8 @@ using NUnit.Framework;
 [TestFixture]
 public class ActionMasterTest
 
-
 {
+    // RED -> GREEN -> REFACTOR 
     private List<int> pinFalls;
     private ActionMaster.Action tidy = ActionMaster.Action.Tidy;
     private ActionMaster.Action refresh = ActionMaster.Action.Refresh;
@@ -46,7 +46,7 @@ public class ActionMasterTest
     [Test]
     public void T04CheckResetAtStrikeInLastFrame()
     {
-        int[] rolls = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+        int[] rolls = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
 
         foreach (int roll in rolls)
         {
@@ -55,7 +55,29 @@ public class ActionMasterTest
 
         Assert.AreEqual(refresh, am.Bowl(10));
     }
+    [Test]
+    public void T05CheckGameEndsAfter10thFrame()
+    {
+        int[] rolls = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+
+        foreach (int roll in rolls)
+        {
+            am.Bowl(roll);
+        }
+
+        Assert.AreEqual(endGame, am.Bowl(10));
+    }
 
 
+    [Test]
+    public void T06YouTubeRollsEndInEndGame()
+    {
+        int[] rolls = { 8, 2, 7, 3, 3, 4, 10, 2, 8, 10, 10, 8, 0, 10, 8, 2 };
+        foreach (int roll in rolls)
+        {
+            am.Bowl(roll);
+        }
+        Assert.AreEqual(endGame, am.Bowl(9));
+    }
 
 }
