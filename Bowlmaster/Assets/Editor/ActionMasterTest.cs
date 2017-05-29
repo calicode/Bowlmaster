@@ -80,4 +80,112 @@ public class ActionMasterTest
         Assert.AreEqual(endGame, am.Bowl(9));
     }
 
+
+    [Test]
+    public void T07CheckResetAtSpareInLastFrame()
+    {
+        int[] rolls = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+        foreach (int roll in rolls)
+        {
+            am.Bowl(roll);
+        }
+
+        Assert.AreEqual(refresh, am.Bowl(9));
+    }
+
+    [Test]
+    public void T08DarylBowl20Test()
+    {
+        int[] rolls = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 10 };
+
+        foreach (int roll in rolls)
+        {
+            am.Bowl(roll);
+        }
+
+        Assert.AreEqual(tidy, am.Bowl(5));
+    }
+
+
+    [Test]
+    public void T09BensBowl20Test()
+    {
+        int[] rolls = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 10 };
+
+        foreach (int roll in rolls)
+        {
+            am.Bowl(roll);
+        }
+
+        Assert.AreEqual(tidy, am.Bowl(0));
+    }
+
+    [Test]
+    public void T10GameEndsAtBowl20()
+    {
+        {
+            int[] rolls = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+
+            foreach (int roll in rolls)
+            {
+                am.Bowl(roll);
+            }
+
+            Assert.AreEqual(endGame, am.Bowl(0));
+        }
+
+
+    }
+    [Test]
+    public void T11NathanBowlIndexTest()
+    {
+        {
+            int[] rolls = { 0, 10, 5 };
+
+            foreach (int roll in rolls)
+            {
+                am.Bowl(roll);
+            }
+
+            Assert.AreEqual(endTurn, am.Bowl(1));
+        }
+
+
+    }
+
+    [Test]
+    public void T12Dondi10thFrameTurkey()
+    {
+        {
+            int[] rolls = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 10, 10 };
+
+            foreach (int roll in rolls)
+            {
+                am.Bowl(roll);
+            }
+
+            Assert.AreEqual(endGame, am.Bowl(10));
+        }
+
+    }
+
+    [Test]
+    public void T13ZeroOneGivesEndTurn()
+    {
+        {
+            int[] rolls = { 0 };
+
+            foreach (int roll in rolls)
+            {
+                am.Bowl(roll);
+            }
+
+            Assert.AreEqual(endTurn, am.Bowl(1));
+        }
+
+
+    }
+
+
+
 }
