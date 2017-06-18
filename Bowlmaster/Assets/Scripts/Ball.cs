@@ -8,6 +8,7 @@ public class Ball : MonoBehaviour
     AudioSource asource;
     public bool rolled;
     public Vector3 launchVelocity = new Vector3(0, 0, 400); //default speed
+    Vector3 ballStartPosition = new Vector3(0, 15, 48);
     void Start()
     {
         rolled = false;
@@ -38,7 +39,7 @@ public class Ball : MonoBehaviour
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
         transform.eulerAngles = Vector3.zero;
-        transform.position = new Vector3(0, 15, 48);
+        transform.position = ballStartPosition;
         rb.useGravity = false;
         rolled = false;
     }

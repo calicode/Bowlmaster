@@ -12,7 +12,6 @@ public class PinHandler : MonoBehaviour
     private Ball ball;
     private Animator anim;
     public GameObject pinsPrefab;
-
     // Use this for initialization
     void Start()
 
@@ -61,15 +60,30 @@ public class PinHandler : MonoBehaviour
 
         if ((Time.time - lastChangeTime) > settleTime)
         {
-            if (currentStandingCount == 0)
-            {
-                anim.SetTrigger("refreshPins");
 
-            }
-            else anim.SetTrigger("clearPins");
-            CountPinsAndResetBall();
+            GetNextAction(currentStandingCount);
         }
+
     }
+
+    public void GetNextAction(int pinsStanding)
+    {
+
+        ActionMaster.Action nextAction = ActionMaster.Bowl(10 - pinsStanding);
+
+        switch (nextAction)
+        {
+            case ActionMaster.Action.Tidy:
+                anim.SetTrigger("clearPins");
+                break;
+            case ActionMaster.Action.Refresh:
+            case ActionMaster.Action.EndTurn:
+                anim.SetTrigger("refreshPins");
+                break;
+        }
+        CountPinsAndResetBall();
+    }
+
 
 
 
@@ -104,14 +118,17 @@ public class PinHandler : MonoBehaviour
         foreach (Pin pin in GetPinArray())
         {
 
-            if (pin.IsStanding()) { pin.Raise(); }
+            if (pin.IsStanding())
+            {
+                pin.transform.eulerAngles = new Vector3(0, 0, 0);
+                pin.Raise();
+            }
         }
 
 
     }
     public void LowerPins()
     {
-        Debug.Log("Lower pins called from pinhandler");
         foreach (Pin pin in GetPinArray())
         {
             pin.Lower();

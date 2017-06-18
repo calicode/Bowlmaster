@@ -29,13 +29,13 @@ public class Pin : MonoBehaviour
         rb.useGravity = false;
 
         Debug.Log("Rause pins called");
-        transform.Translate(0, liftAmount, 0, Space.World);
+        transform.position = new Vector3(transform.position.x, liftAmount, transform.position.z);
 
     }
     public void Lower()
     {
         Debug.Log("Lower pins called");
-        transform.Translate(0, -liftAmount, 0);
+        transform.position = new Vector3(transform.position.x, 0, transform.position.z);
         rb.useGravity = true;
     }
 }
