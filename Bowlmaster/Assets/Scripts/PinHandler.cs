@@ -5,13 +5,12 @@ using UnityEngine;
 public class PinHandler : MonoBehaviour
 {
     private Pin[] pinArray;
-    private bool ballEnteredBox = false;
-    private int lastStandingCount = -1;
-    private int lastSettledCount = 10;
     private float lastChangeTime;
     private Ball ball;
     private Animator anim;
     public GameObject pinsPrefab;
+
+    public GameManager gameManager;
     // Use this for initialization
     void Start()
 
@@ -20,57 +19,18 @@ public class PinHandler : MonoBehaviour
         ball = GameObject.FindObjectOfType<Ball>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (ballEnteredBox) { CheckPinsSettled(); }
-    }
 
 
-    // look at level manager to figure out what i need to do to get button to see this setting static didn't fly
-
-    public int CountStanding()
-    {
-        int standingPinCount = 0;
-
-        foreach (Pin pin in GetPinArray())
-        {
-
-            if (pin.IsStanding()) { standingPinCount++; }
-        }
-        return standingPinCount;
-    }
 
 
 
 
     //this method does too much
-    public void CheckPinsSettled()
-    {
-        int currentStandingCount = CountStanding();
-
-        if (currentStandingCount != lastStandingCount)
-        {
-            lastChangeTime = Time.time;
-            lastStandingCount = currentStandingCount;
-            return;
-        }
-
-        float settleTime = 3f;
-
-        if ((Time.time - lastChangeTime) > settleTime)
-        {
-
-            GetNextAction(currentStandingCount);
-        }
-
-    }
-
-    public void GetNextAction(int pinsStanding)
+    public void NextAction()
     {
 
-        ActionMaster.Action nextAction = ActionMaster.Bowl(10 - pinsStanding);
-
+        ActionMaster.Action nextAction = gameManager.GetNextAction();
+        Debug.Log("Nextaction is " + nextAction.ToString());
         switch (nextAction)
         {
             case ActionMaster.Action.Tidy:
@@ -81,22 +41,12 @@ public class PinHandler : MonoBehaviour
                 anim.SetTrigger("refreshPins");
                 break;
         }
-        CountPinsAndResetBall();
-    }
 
-
-
-
-
-    public void CountPinsAndResetBall()
-    {
-
-        Debug.Log("Ball reset, pins left are " + lastStandingCount);
-        lastStandingCount = -1;
         ball.ResetBall();
-        ballEnteredBox = false;
-
     }
+
+
+
 
 
     public void RefreshPins()
@@ -136,24 +86,7 @@ public class PinHandler : MonoBehaviour
 
 
     }
-    void OnTriggerEnter(Collider collider)
-    {
-        if (collider.gameObject.name == "Ball")
-        {
-            ballEnteredBox = true;
-        }
-    }
 
-
-
-    void OnTriggerExit(Collider collider)
-    {
-        if (collider.gameObject.name == "Pin_Collider")
-        {
-            Debug.Log("pin left collider it should destroy");
-            Destroy(collider.transform.parent.gameObject);
-        }
-    }
 
 
 

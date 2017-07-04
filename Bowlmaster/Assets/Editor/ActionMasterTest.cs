@@ -8,7 +8,6 @@ public class ActionMasterTest
 
 {
     // RED -> GREEN -> REFACTOR 
-    private List<int> pinFalls;
     private ActionMaster.Action tidy = ActionMaster.Action.Tidy;
     private ActionMaster.Action refresh = ActionMaster.Action.Refresh;
     private ActionMaster.Action endTurn = ActionMaster.Action.EndTurn;
@@ -16,7 +15,6 @@ public class ActionMasterTest
     [SetUp]
     public void Setup()
     {
-        pinFalls = new List<int>();
     }
 
     [Test]

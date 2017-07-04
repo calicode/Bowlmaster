@@ -8,7 +8,6 @@ using UnityEngine.EventSystems;
 public class DragLaunch : MonoBehaviour
 {
 
-    private EventSystem eventSys;
     private Vector3 dragPositionStart, dragPositionEnd;
     private float dragEndTime, dragStartTime;
     private Ball ball;
@@ -17,7 +16,6 @@ public class DragLaunch : MonoBehaviour
     void Start()
     {
         ball = GetComponent<Ball>();
-        eventSys = EventSystem.current;
     }
 
 
@@ -37,8 +35,6 @@ public class DragLaunch : MonoBehaviour
         dragPositionStart = Input.mousePosition;
         dragStartTime = Time.time;
         // capture time & position of drag start
-        Debug.Log("Drag start position is" + dragPositionStart.ToString());
-        Debug.Log("Drag start time is" + dragStartTime.ToString());
     }
 
     public void DragEnd()
@@ -63,7 +59,6 @@ public class DragLaunch : MonoBehaviour
 
         launchVector.x = (dragPositionEnd.x - dragPositionStart.x) / dragDeltaTime;
         launchVector.y = 0;
-        Debug.Log("Launch vector is" + launchVector.ToString());
         ball.RollMe(launchVector);
     }
 

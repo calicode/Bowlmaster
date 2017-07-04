@@ -12,9 +12,9 @@ public class Pin : MonoBehaviour
         rb = GetComponent<Rigidbody>();
 
     }
+
     public bool IsStanding()
     {
-
         if (Mathf.Round(transform.rotation.eulerAngles.x) == 0)
         {
             return true;
@@ -28,13 +28,13 @@ public class Pin : MonoBehaviour
     {
         rb.useGravity = false;
 
-        Debug.Log("Rause pins called");
         transform.position = new Vector3(transform.position.x, liftAmount, transform.position.z);
+        //reset rotation 
+        transform.eulerAngles = new Vector3(0, 0, 0);
 
     }
     public void Lower()
     {
-        Debug.Log("Lower pins called");
         transform.position = new Vector3(transform.position.x, 0, transform.position.z);
         rb.useGravity = true;
     }

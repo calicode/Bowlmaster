@@ -8,7 +8,7 @@ public class SkyboxRotate : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        sb = GetComponent<Skybox>();
+        // sb = GetComponent<Skybox>();
     }
 
     // Update is called once per frame

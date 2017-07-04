@@ -30,15 +30,16 @@ public static class ActionMaster
     public static Action NextAction(List<int> pinFalls)
     {
         ResetState();
-
+        Debug.Log("Actionmaster got pinfalls of" + pinFalls.Count);
         foreach (int pin in pinFalls)
         {
 
             nextAction = Bowl(pin);
         }
+
+        Debug.Log("Inside Actionmaster returning nextaction of" + nextAction.ToString());
         return nextAction;
     }
-
 
     public static Action Bowl(int pins)
     {
