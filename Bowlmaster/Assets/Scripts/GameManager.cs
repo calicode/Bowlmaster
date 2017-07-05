@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public List<int> pinFalls = new List<int>();
     bool ballHasLeftBox = false;
 
-    ActionMaster.Action nextAction;
+    static ActionMaster.Action nextAction;
 
 
     public void UpdatePinFalls(int pins)
@@ -18,17 +18,17 @@ public class GameManager : MonoBehaviour
         pinFalls.Add(pins);
 
         SetNextAction(ref pinFalls);
-        pinHandler.NextAction();
 
         BallHasLeftBox(false);
-        ball.ResetBall();
         // move reset out somewhere else
 
     }
 
     public void SetNextAction(ref List<int> pinFalls)
     {
+
         nextAction = ActionMaster.NextAction(pinFalls);
+
     }
 
     public ActionMaster.Action GetNextAction()
